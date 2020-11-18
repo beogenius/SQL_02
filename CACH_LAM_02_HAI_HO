@@ -1,0 +1,85 @@
+/*9. hien thi cac danh sach sinh vien*/
+select * from Student;
+
+# 10. COUNT xem co bao nhieu ban sinh vien
+select COUNT(RN) as TotalStudent
+from Student;
+
+# 11. HIen thi danh sach cac mon hoc
+select sID, sName as 'Ten Mon Hoc'
+from Subject;
+
+# 12.HIen thi diem thi cao nhat
+select MAX(Mark) as HighestMark
+from StudentSubject;
+
+# 13. Dem xem co bao nhieu hoc vien co diem thi > 5 diem
+
+select COUNT(Mark) as DiemThiLonHon5
+from StudentSubject
+where Mark > 5;
+
+# 14. Tinh trung binh diem cua cac hoc vien
+
+select AVG(MARK) as 'DIEM TRUNG BINH CUA CAC HOC VIEN'
+from StudentSubject;
+
+# 15. Hien thi danh sach cac hoc vien co tuoi >= 20
+
+select RN, Name, Age as 'Tuoi >= 20 tuoi'
+from Student
+where age >= 20;
+
+# 16.Hien thi so hieu sinh vien va ma mon co diem thi cao nhat voi yeu cau :
+# RM hien thi la 'So hieu sinh vien ' - Sid la 'Ma Mon Hoc'
+
+select S.RN as 'So Hieu Sinh Vien' , S2.sID as 'Ma Mon Hoc' , MAX(s3.Mark)
+from StudentSubject s3
+inner join Student S on  s3.RN = S.RN
+inner join Subject S2 on s3.sID = S2.sID;
+
+
+select QLDiemThi.StudentSubject.RN, StudentSubject.Mark
+from
+     StudentSubject;
+
+use QLDiemThi;
+
+select RN, sID, MAX(Mark)
+    from StudentSubject
+where Mark = (select MAX(Mark) from StudentSubject);
+
+
+
+with t as(
+         select RN, sID
+         from StudentSubject
+
+)
+select max(Mark) as total,RN,sID
+from StudentSubject;
+
+use QLDiemThi;
+
+select * from StudentSubject;
+
+select *
+from Student;
+
+select * from Subject;
+
+SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
+
+
+select RN,sID,MAX(Mark)
+from StudentSubject;
+
+# 17.Hien thi chi tiet bang StudentSubject cua 2 mon hoc co diem thi cao nhat
+
+SELECT * FROM studentSubject
+WHERE mark = (SELECT MAX(studentsubject.mark) FROM studentSubject)
+GROUP BY SID;
+
+# 18.Hiển thị ngày thi có điểm thi cao nhất.
+SELECT Date,RN,sID FROM studentSubject
+WHERE mark = (SELECT MAX(Studentsubject.Mark) FROM StudentSubject);
